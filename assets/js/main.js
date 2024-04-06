@@ -47,12 +47,13 @@ Tips:
 20. Write your own function using at least 3 concepts.
 
 */
+
 //1
 // Importar el array de canciones
-import songs from './songs.js';
-
+import songs from './songs.js'; // import nos permite traer el modulo que queremos
+                                //dandole la ruta (siempre y cuando este export en el otro modulo)
 //para ver el array de canciones en este archivo
-console.log(songs);
+console.log('1',songs);
 
 //2 Usa la función map para crear un nuevo array 
 //con el título de cada canción en letras mayúsculas.
@@ -61,20 +62,38 @@ se utiliza para iterar sobre cada elemento de un array y aplicar una función a 
 de esos elementos, devolviendo un nuevo array con los resultados de aplicar la función 
 a cada elemento.
 La sintaxis básica de map() es la siguiente:
+
 const newArray = array.map((element, index, array) => {
   // Código para transformar cada elemento del array
   return transformedElement;
 });
+
 element: El elemento actual del array que está siendo procesado.
 index (opcional): La posición del elemento actual dentro del array.
 array (opcional): El array sobre el que se está iterando.
 La función proporcionada como argumento a map() se llama una función de transformación.
-Toma un elemento del array como entrada y devuelve el resultado transformado.*/
+Toma un elemento del array como entrada y devuelve el resultado transformado.
+Mi ejercicio:
+
 const titlesUpperCase = songs.map(song => {
     return song.title.toUpperCase();
   });
+    console.log(titlesUpperCase);*/
+
+//resolusión del profesor: a Songs con map le digo que cree un nuevo array que se llame songs
+//que contenga el elemnto title del array songs del modulo songs
+//no necesito el return y con poner solo => le pido que me devuelva lo que necesito, en este caso 
+//el elemento y una funcion propia de js
   
-  console.log(titlesUpperCase);
+//const titlesUpperCase = songs.map((song) => song.title.toUpperCase())
+//console.log('2',titlesUpperCase);
+
+//Luego mejoro la sintaxis utilizando la desestructuracion del elemento que necesitabamos{title}
+const titlesUpperCase = songs.map(({title}) => title.toUpperCase()); 
+// agarramos con la desestructuracion directamente el elemento que queremos 
+//y le aplicamos la funcion que necesitamos
+console.log('2',titlesUpperCase);
+
 
 //3 Usa la función filter para crear un nuevo array con todas las canciones lanzadas antes 
 //de 1975.
@@ -93,6 +112,7 @@ const newArray = array.filter((element, index, array) => {
 element: El elemento actual del array que está siendo evaluado.
 index (opcional): La posición del elemento actual dentro del array.
 array (opcional): El array sobre el que se está iterando.
+
 Por ejemplo, si tienes un array de números y quieres filtrar solo los números mayores 
 que 5, puedes hacerlo así:
 const numbers = [1, 6, 2, 8, 3, 9, 5];
@@ -102,21 +122,21 @@ const filteredNumbers = numbers.filter(number => {
 
 console.log(filteredNumbers); // Resultado: [6, 8, 9]
 */
-const songsBefore1975 = songs.filter(song => {
-    return song.year < 1975;
-  });
-  
-  console.log(songsBefore1975);
+//ejercicio modificado utilizando la simplificacion de sintaxis
+const songsBefore1975 = songs.filter(({year}) => year < 1975); //filtro songs,
+//hago la desconstruccion de {year} y le digo que este tiene que tener un valor inferior
+//al que le doy
+console.log('3',songsBefore1975);
 
- //4 Usa la destructuring para crear una variable 
- //que almacene el título de la primera canción en el array. 
+/*4 Usa la destructuring para crear una variable 
+que almacene el título de la primera canción en el array. */
+
 //primero utilizamos la destructuración del array para extraer el primer elemento
 // y asignarlo a la variable firstSong. 
 const [firstSong] = songs;
 const { title: firstSongTitle } = firstSong;
-// Luego, utilizamos la destructuración de objeto para extraer la propiedad title del objeto
- // firstSong y asignarla a una variable llamada firstSongTitle.
-console.log(firstSongTitle);
+
+console.log('4',firstSongTitle);
 
 //5 Usa la función find para obtener el objeto que representa la canción "Hotel California".
 

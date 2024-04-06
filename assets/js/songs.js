@@ -11,4 +11,5 @@ const songs = [
   { title: 'Thriller', artist: 'Michael Jackson', year: 1982 },
 ];
 
-export default songs;
+export default songs; // nos permite exportar este modulo en otro archivo, en este caso lo 
+                      //usamos en el main.
