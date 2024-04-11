@@ -52,15 +52,16 @@ Tips:
 // Importar el array de canciones
 import songs from './songs.js'; // import nos permite traer el modulo que queremos
                                 //dandole la ruta (siempre y cuando este export en el otro modulo)
-//para ver el array de canciones en este archivo
-console.log('1',songs);
+console.log('1',songs);//para ver el array de canciones en este archivo
 
 //2 Usa la función map para crear un nuevo array 
 //con el título de cada canción en letras mayúsculas.
+
 /*La función map() es un método disponible en los arrays en JavaScript que 
 se utiliza para iterar sobre cada elemento de un array y aplicar una función a cada uno
 de esos elementos, devolviendo un nuevo array con los resultados de aplicar la función 
 a cada elemento.
+
 La sintaxis básica de map() es la siguiente:
 
 const newArray = array.map((element, index, array) => {
@@ -73,6 +74,7 @@ index (opcional): La posición del elemento actual dentro del array.
 array (opcional): El array sobre el que se está iterando.
 La función proporcionada como argumento a map() se llama una función de transformación.
 Toma un elemento del array como entrada y devuelve el resultado transformado.
+
 Mi ejercicio:
 
 const titlesUpperCase = songs.map(song => {
@@ -80,15 +82,14 @@ const titlesUpperCase = songs.map(song => {
   });
     console.log(titlesUpperCase);*/
 
-//resolusión del profesor: a Songs con map le digo que cree un nuevo array que se llame songs
-//que contenga el elemnto title del array songs del modulo songs
-//no necesito el return y con poner solo => le pido que me devuelva lo que necesito, en este caso 
-//el elemento y una funcion propia de js
-  
+/*resolusión del profesor: utilizar map() para crear un nuevo array
+con el contenido especidfico que queremos dentro del modulo songs y modificarlo
+como querramos, en este caso toUpperCase():
+
 //const titlesUpperCase = songs.map((song) => song.title.toUpperCase())
 //console.log('2',titlesUpperCase);
 
-//Luego mejoro la sintaxis utilizando la desestructuracion del elemento que necesitabamos{title}
+//Luego mejoro la sintaxis utilizando la desestructuracion del elemento que necesitabamos{title}*/
 const titlesUpperCase = songs.map(({title}) => title.toUpperCase()); 
 // agarramos con la desestructuracion directamente el elemento que queremos 
 //y le aplicamos la funcion que necesitamos
@@ -105,10 +106,12 @@ Esta función de prueba se aplica a cada elemento del array y devuelve true o fa
 dependiendo de si el elemento cumple o no con la condición.
 
 La sintaxis básica de filter() es la siguiente:
+
 const newArray = array.filter((element, index, array) => {
   // Código para evaluar si el elemento cumple con la condición
   // Devuelve true si el elemento debe incluirse en el nuevo array, false en caso contrario
 });
+
 element: El elemento actual del array que está siendo evaluado.
 index (opcional): La posición del elemento actual dentro del array.
 array (opcional): El array sobre el que se está iterando.
@@ -122,6 +125,7 @@ const filteredNumbers = numbers.filter(number => {
 
 console.log(filteredNumbers); // Resultado: [6, 8, 9]
 */
+
 //ejercicio modificado utilizando la simplificacion de sintaxis
 const songsBefore1975 = songs.filter(({year}) => year < 1975); //filtro songs,
 //hago la desconstruccion de {year} y le digo que este tiene que tener un valor inferior
@@ -131,11 +135,10 @@ console.log('3',songsBefore1975);
 /*4 Usa la destructuring para crear una variable 
 que almacene el título de la primera canción en el array. */
 
-//primero utilizamos la destructuración del array para extraer el primer elemento
-// y asignarlo a la variable firstSong. 
-const [firstSong] = songs;
-const { title: firstSongTitle } = firstSong;
-
+//armo el array [] y dentro hago el destructuring {title:  nombre de variable}
+//y lo igualo al modulo songs para obtener lo que quiero
+//como es el primer objeto del array, no necesito ponerle la posicion especifica.
+const [{ title: firstSongTitle }] = songs;
 console.log('4',firstSongTitle);
 
 //5 Usa la función find para obtener el objeto que representa la canción "Hotel California".
@@ -146,6 +149,7 @@ a cada elemento del array, y find() devuelve el primer elemento para el cual la 
 prueba devuelve true, o undefined si ningún elemento cumple con la condición.
 
 La sintaxis básica de find() es la siguiente:
+
 const result = array.find((element, index, array) => {
   // Código para evaluar si el elemento cumple con la condición
   // Devuelve true si el elemento cumple con la condición, false en caso contrario
@@ -160,24 +164,22 @@ const result = numbers.find(number => {
 
 console.log(result); // Resultado: 6*/
 
-const hotelCaliforniaSong = songs.find(song => {
-    return song.title === "Hotel California";
-  });
+//ejercicio modificado con las simplificaciones de sintaxis aprendidas en clase, lo resolvi diferente a la resolusion de la clase pero funciona igual
+const hotelCaliforniaSong = songs.find(({title}) => title === "Hotel California");
+console.log('5',hotelCaliforniaSong);
   
-  console.log(hotelCaliforniaSong);
-  
-//Usa el operador rest para crear una función que tome cualquier número de argumentos 
+//6 Usa el operador rest para crear una función que tome cualquier número de argumentos 
 //y devuelva su suma. (Consejo: Usa reduce).
 /* Los tres puntos (...) en JavaScript se conocen como el operador rest cuando 
-se utilizan en la definición de funciones.Lo que hace 
+se utilizan en la definición de funciones Lo que hace 
 es reunir todos los argumentos pasados a la función en un solo array. 
 Esto permite a una función aceptar cualquier número de argumentos.*/
-// Defino una función que tome cualquier número de argumentos y devuelva su suma
+
 const sumar = (...aniosLanzamiento) => {
-  // Utilizo reduce para sumar los elementos del array aniosLanzamiento
+  
   return aniosLanzamiento.reduce((sumaAcumulada, anio) => {
     return sumaAcumulada + anio;
-  }, 0); // 0 es el valor inicial de la suma acumulada
+  }, 0);
 };
 
 // agarro los años de lanzamiento de cada canción en el array
@@ -185,7 +187,7 @@ const aniosLanzamiento = songs.map(song => song.year);
 
 // Calculo la suma de los años utilizando la función sumar
 const sumaAnios = sumar(...aniosLanzamiento);
-console.log(sumaAnios); // Resultado: 19864 (suma de todos los años de lanzamiento)
+console.log('6',sumaAnios); // Resultado: 19864 (suma de todos los años de lanzamiento)
 
 //7
 // Utilizar map y literales de plantilla para crear un nuevo array con el formato "Título - Artista (Año)"
@@ -199,23 +201,106 @@ JavaScript y se convierte en una cadena de texto que se concatena con el resto d
 literal.*/
 
 const cancionesFormateadas = songs.map(song => `${song.title} - ${song.artist} (${song.year})`);//busca dentro del array el titulo el artista y el anio y como esta dentro de comillas invertidas lo trasforma en un string
-
-// Mostrar el nuevo array
-console.log(cancionesFormateadas);
+console.log('7',cancionesFormateadas);
 
 //8 Usa la destructuración y la función filter para crear un nuevo array con 
 //los títulos de todas las canciones de The Beatles.
 
 // Utilizo la destructuración ({}) y la función filter para obtener los títulos de las canciones de The Beatles
 const cancionesTheBeatles = songs.filter(({ artist }) => artist === 'The Beatles').map(({ title }) => title);
+console.log('8',cancionesTheBeatles); 
 
-console.log(cancionesTheBeatles); 
+
+//9. Use arrow functions and the reduce function to calculate the total number of years 
+//between all the songs' release dates. (Tip: Use reduce)
 
 
-//Usar map() y la desestructuración para crear un nuevo array 
-//que contenga objetos con solo el título y el año de cada canción 
-//y que lo muestre en forma de string
+const totalYears = songs.reduce((acc, curr) => acc + curr.year,0);
+console.log('9', totalYears);
 
-const titulosYAnios = songs.map(song => `${song.title} (${song.year})`);
+//10. Create a module that exports a function to calculate the average release year of the songs in the input array. (Tip: Use reduce.)
 
-console.log(titulosYAnios); 
+import { averageYear } from "./utils.js";
+const avgYear = averageYear(songs);
+
+console.log("10", avgYear);
+
+//11. Use the find function to get the object representing the song with the longest title.
+
+const longestTitleSong = songs.find(
+  (song) =>
+    song.title.length === Math.max(...songs.map(({ title }) => title.length))
+);
+
+console.log("11", longestTitleSong);
+
+//12. Use destructuring and template literals to log the title, artist and year of the first element of the array.
+
+const { title, artist, year } = songs[0];
+console.log("12", `${title} by ${artist} was relased in ${year}`);
+
+//13. Use the rest operator to create a new array without the first element.
+const [, ...ramainingSongs] = songs;
+console.log("13", ramainingSongs);
+
+//14. Import the filter() function from a utils.js module and use it to create a new array with all the songs that have "Love" in the title.
+
+
+//const loveSongs = filter(songs, ({ title }) => title.includes("Let"));
+//console.log("14", loveSongs); no me funciona
+
+//15. Use the every() method to check if all the songs have titles that are 5 or more characters long.
+
+const allTitlesAreLong = songs.every(({ title }) => title.length >= 5);
+console.log("15", allTitlesAreLong);
+
+//16. Use the some() method to check if there are any songs from the 80s.
+
+const hasEightes = songs.some(({ year }) => year >= 1980 && year < 1990);
+console.log("16", hasEightes);
+
+//17. Use a template literal to create a string that says "The Beatles released Let It Be in 1970."
+
+const letItBe = songs.find(({ title }) => title === "Let It Be");
+const releaseString = `${letItBe.artist} released ${letItBe.title} in ${letItBe.year}`;
+
+console.log("17", releaseString);
+
+//18. Use the map() method to create a new array with just the artist names.
+
+const artistsNames = songs.map(({ artist }) => artist);
+console.log("18", artistsNames);
+
+//19. Create a function called randomSong that returns one song from the songs array randomly. Log the call of this function 3 times.
+
+const randomSong = (arr) => arr[Math.floor(Math.random() * arr.length)];
+console.log("19", randomSong(songs));
+console.log("19", randomSong(songs));
+console.log("19", randomSong(songs));
+
+//20. Sumar todos los años de las canciones de los 80s
+
+const eigthyYearsSongs = songs
+  .filter(({ year }) => year >= 1980 && year < 1990)
+  .reduce((acc, curr) => acc + curr.year, 0);
+
+console.log("20", eigthyYearsSongs);
+
+/*
+Map => Devuelve un array transformado
+Filter => Devuelve un array con los objetos filtrados
+Find => Devuelve un objeto (El primero que cumpla con la condicion
+Reduce => Devuelve un numero (la sumatoria, promedio, etc)
+*/
+
+
+//Generar una canción tomando un artista random, un año random y un titulo random.
+
+console.log('21', randomSong(songs).artist, randomSong(songs).title, randomSong(songs).year)
+
+
+
+
+
+
+
